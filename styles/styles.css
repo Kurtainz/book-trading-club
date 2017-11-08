@@ -1,0 +1,29 @@
+nav {
+	background-color: #2fe266;
+}
+
+.jumbotron {
+	text-align: center;
+}
+
+#signupForm {
+	width: 70%;
+    margin: 0 auto;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 32px;
+}
+
+#login-form {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+}
+
+#update-form {
+	margin-bottom: 30px;
+}
