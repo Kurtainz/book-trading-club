@@ -19,7 +19,7 @@
 				}
 		if ($ok) {
 			$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			$db = mysqli_connect('localhost', $username, $password, 'book-club');
+			$db = getDBConnection();
 			// SQL Query to check username doesn't already exist
 			$checkQuery = sprintf("
 				SELECT * FROM users WHERE username='%s'
@@ -39,15 +39,11 @@
 				mysqli_real_escape_string($db, $_POST['username']),
 				mysqli_real_escape_string($db, $hash)
 			);
-			if (!mysqli_query($db, $query)) {
-				echo "Error happened\n";
-				echo mysqli_error($db);
-				mysqli_close($db);
-				header('Location:signup.php');
+			if (!makeQuery($db, $query)) {
+				header('Location:signup.php?failed=1');
 				exit(0);
 			}
 			else {
-				mysqli_close($db);
 				header('Location:login.php?newUser=1');
 				exit(0);
 			}

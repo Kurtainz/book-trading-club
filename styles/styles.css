@@ -11,7 +11,7 @@ nav {
     margin: 0 auto;
 }
 
-h2 {
+.index-minor-header {
 	text-align: center;
 	margin-bottom: 32px;
 }
@@ -26,4 +26,9 @@ h2 {
 
 #update-form {
 	margin-bottom: 30px;
+}
+
+.book-title {
+	max-height: 10vh;
+	overflow: hidden;
 }

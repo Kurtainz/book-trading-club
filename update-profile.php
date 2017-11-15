@@ -8,8 +8,7 @@
 	}
 
 	$updated = '';
-
-	// $db = mysqli_connect('localhost', $username, $password, 'book-club');
+	$db = getDBConnection();
 
 	if (isset($_POST['details-submit'])) {
 		$query = sprintf("
@@ -21,8 +20,9 @@
 			mysqli_real_escape_string($db, $_POST['town']),
 			$_SESSION['id']
 		);
-		if (makeQuery($query)) {
+		if (makeQuery($db, $query)) {
 			$updated = "<p>Updated details =)</p>";	
+			$db = getDBConnection();
 		}
 		else {
 			$updated = "<p>Sorry, there was an error updating =(</p>";
@@ -31,18 +31,24 @@
 		// mysqli_close($db);
 	}
 	elseif (isset($_POST['password-submit'])) {
-		$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		$query = sprintf("
-			UPDATE users SET password='%s' WHERE id='%s'
-			",
-			$hash,
-			$_SESSION['id']
-		);
-		if (makeQuery($query)) {
-			$updated = "<p>Password updated =)</p>";
+		if ($_POST['password1'] === $_POST['password2']) {
+			$hash = password_hash($_POST['password1'], PASSWORD_DEFAULT);
+			$query = sprintf("
+				UPDATE users SET password='%s' WHERE id='%s'
+				",
+				$hash,
+				$_SESSION['id']
+			);
+			if (makeQuery($db, $query)) {
+				$updated = "<p>Updated password =)</p>";
+				$db = getDBConnection();
+			}
+			else {
+				$updated = "<p>Unable to update your password =(. Try again perhaps? </p>";
+			}
 		}
 		else {
-			$updated = "<p>Sorry, there was an error updating =(</p>";
+			$updated = "<p>Passwords did not match</p>";
 		}
 		// mysqli_query($db, $query);
 		// mysqli_close($db);
@@ -53,19 +59,10 @@
 		"SELECT * FROM users WHERE id='%s'",
 		$_SESSION['id']
 		);
-	if (makeQuery($query)) {
-		$result = mysqli_fetch_assoc(makeQuery($query));
+	$result = mysqli_fetch_assoc(makeQuery($db, $query));
+	if (!$result) {
+		echo "Error retrieving data";
 	}
-	// if (!mysqli_query($db, $query)) {
-	// 	echo "Error happened\n";
-	// 	echo mysqli_error($db);
-	// 	mysqli_close($db);
-	// }
-	// else {
-	// 	$result = mysqli_fetch_assoc(mysqli_query($db, $query));
-	// 	mysqli_close($db);
-	// }
-
 
 ?>
 
@@ -109,11 +106,11 @@
 		<form method="post" action="">
 			<div class="form-group">
 				<label for="password1">Password</label>
-				<input name="password1" type="password" class="form-control" id="password1" placeholder="Password">
+				<input required name="password1" type="password" class="form-control" id="password1" placeholder="Password">
 			</div>
 			<div class="form-group">
-				<label for="password2">Password</label>
-				<input name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password">
+				<label for="password2">Confirm Password</label>
+				<input required name="password2" type="password" class="form-control" id="password2" placeholder="Confirm Password">
 			</div>
 			<button name="password-submit" type="submit" class="btn btn-primary">Submit</button>
 		</form>

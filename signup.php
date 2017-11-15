@@ -1,11 +1,22 @@
 <?php
 	$title = 'Sign Up';
 	require 'header.php';
+	if (isset($_SESSION['username'])) {
+		header("Location: index.php");
+		exit(0);
+	}
 	if (isset($_GET['exists'])) {
 		echo "
 		<div>
 			<h2>Sorry, this username is already in use</h2>
 		</div>
+		";
+	}
+	elseif (isset($_GET['failed'])) {
+		echo "
+			<div>
+				<h2>Account creation did not work for some reason =(. Try again perhaps?</h2>
+			</div>
 		";
 	}
 ?>

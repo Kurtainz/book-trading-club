@@ -25,7 +25,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<h2>Why Join Us?</h2>
+				<h2 class="index-minor-header">Why Join Us?</h2>
 			</div>
 			<div class="col-md-3">
 				<h3>Browse Other User's Book Collections</h3>

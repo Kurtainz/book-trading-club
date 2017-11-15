@@ -10,6 +10,7 @@
 <head>
 	<meta charset="utf-8">
 	<title><?= $title ?></title>
+	<script src="https://use.fontawesome.com/12b34b3018.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
@@ -37,7 +38,15 @@
 					else {
 						echo "
 							<li class='nav-item'>
-								<a class='nav-link' href='#'>My Books</a>
+								<a class='nav-link' href='#'>All Books</a>
+							</li>";
+						echo "
+							<li class='nav-item'>
+								<a class='nav-link' href='my-books.php'>My Books</a>
+							</li>";
+						echo "
+							<li class='nav-item'>
+								<a class='nav-link' href='update-profile.php'><i class='fa fa-cogs' aria-hidden='true'></i></a>
 							</li>";
 						echo "
 							<li class='nav-item'>
