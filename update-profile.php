@@ -15,9 +15,9 @@
 			UPDATE users SET `first-name`='%s', `last-name`='%s', town='%s' 
 			WHERE id='%s'
 			", 
-			mysqli_real_escape_string($db, $_POST['firstname']),
-			mysqli_real_escape_string($db, $_POST['lastname']),
-			mysqli_real_escape_string($db, $_POST['town']),
+			mysqli_real_escape_string($db, trim($_POST['firstname'])),
+			mysqli_real_escape_string($db, trim($_POST['lastname'])),
+			mysqli_real_escape_string($db, trim($_POST['town'])),
 			$_SESSION['id']
 		);
 		if (makeQuery($db, $query)) {
@@ -27,11 +27,10 @@
 		else {
 			$updated = "<p>Sorry, there was an error updating =(</p>";
 		}
-		// mysqli_query($db, $query);
-		// mysqli_close($db);
 	}
 	elseif (isset($_POST['password-submit'])) {
-		if ($_POST['password1'] === $_POST['password2']) {
+		// Check passwords match and that their length is not greater than 255 (DB limit)
+		if (($_POST['password1'] === $_POST['password2']) && (strlen($_POST['password1']) < 256 && strlen($_POST['password2']) < 256)) {
 			$hash = password_hash($_POST['password1'], PASSWORD_DEFAULT);
 			$query = sprintf("
 				UPDATE users SET password='%s' WHERE id='%s'

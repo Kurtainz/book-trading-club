@@ -38,7 +38,7 @@
 					else {
 						echo "
 							<li class='nav-item'>
-								<a class='nav-link' href='#'>All Books</a>
+								<a class='nav-link' href='all-books.php'>All Books</a>
 							</li>";
 						echo "
 							<li class='nav-item'>

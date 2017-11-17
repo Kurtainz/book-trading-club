@@ -8,6 +8,7 @@ function makeSearch(query) {
 	request.open('GET', url);
 	request.send();
 
+	// Successful query will return JSON object
 	request.onload = function() {
 		appendData(JSON.parse(request.response));
 	}
@@ -19,52 +20,52 @@ function appendData(data) {
 	suggestions.setAttribute('class', 'row');
 	document.getElementById('search').appendChild(suggestions);
 	data.items.forEach(function(item) {
-		suggestions.appendChild(createNewElements(item));
+		var newElement = createNewElements(item);
+		if (newElement) {
+			suggestions.appendChild(createNewElements(item));			
+		}
 	});
 }
 
 // Creates inner DOM elements with data from JSON data
 function createNewElements(item) {
-	var div = document.createElement('div');
-	var h2 = div.appendChild(document.createElement('h2'));
-	var img = div.appendChild(document.createElement('img'));
-	var a = div.appendChild(document.createElement('a'));
-	div.setAttribute('class', 'col-md-3');
-	h2.setAttribute('class', 'book-title');
 	var book = createNewBook(item);
-	if (!book) {
-		h2.innerHTML = "Error";
-		p.innerHTML = "Unable to load this book X(";
+	if (book) {
+		var div = document.createElement('div');
+		var h2 = div.appendChild(document.createElement('h2'));
+		var img = div.appendChild(document.createElement('img'));
+		var a = div.appendChild(document.createElement('a'));
+		var p = div.appendChild(document.createElement('p'));
+		div.setAttribute('class', 'col-md-3');
+		h2.setAttribute('class', 'book-title');
+		h2.innerHTML = book.name;
+		p.innerHTML = book.authors;
+		img.src = book.picture;
+		a.innerHTML = "Add Book";
+		a.book = book;
+		a.setAttribute('class', 'btn btn-primary');
+		a.addEventListener('click', addBook);
 		return div;
 	}
-	h2.innerHTML = book.name;
-	var p = div.appendChild(document.createElement('p'));
-	p.innerHTML = book.authors;
-	img.src = book.picture;
-	a.innerHTML = "Add Book";
-	a.book = book;
-	a.setAttribute('class', 'btn btn-primary');
-	a.addEventListener('click', addBook);
-	return div;
 }
 
 function createNewBook(item) {
 	var authors = '';
 	var picture = '';
-	if (item.volumeInfo.industryIdentifiers[0].identifier && item.volumeInfo.title) {
+	if (item.volumeInfo.industryIdentifiers && item.volumeInfo.title) {
 		var ISBN = item.volumeInfo.industryIdentifiers[0].identifier;
 		var name = item.volumeInfo.title;
 		if (item.volumeInfo.authors) {
 			authors = item.volumeInfo.authors.toString();
 		}
-		if (item.volumeInfo.imageLinks.thumbnail) {
+		if (item.volumeInfo.imageLinks) {
 			picture = item.volumeInfo.imageLinks.thumbnail;
 		}
 	}
 	else {
 		return null;
 	}
-	return bookDetails = {
+	return book = {
 		ISBN : ISBN,
 		name : name,
 		authors : authors,
@@ -73,8 +74,7 @@ function createNewBook(item) {
 }
 
 function addBook(e) {
-	var parent = e.target.parentNode;
-	var p = parent.appendChild(document.createElement('p'));
+	var p = e.target.parentNode.appendChild(document.createElement('p'));
 	var json_string = JSON.stringify(e.target.book);
 	request = new XMLHttpRequest();
 	request.open("POST", 'new-book.php', true);
@@ -91,9 +91,19 @@ function addBook(e) {
         		console.log(this.responseText);
         	}
         }
-    };
+    }
+}
 
+function makeRequest(url, type, content_type, content, callback) {
+	var request = new XMLHttpRequest();
+	request.open(type, url);
+	request.send();
 
+	request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	callback(request.response);
+        }
+    }
 }
 
 function showResponse(response) {

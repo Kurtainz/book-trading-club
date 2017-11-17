@@ -1,6 +1,5 @@
 <?php 
 	require 'scripts/database.php';
-
 	$formValues = [
 		'username',
 		'password',
@@ -18,25 +17,28 @@
 					}
 				}
 		if ($ok) {
+			$username = trim(strtolower($_POST['username']));
 			$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			$db = getDBConnection();
 			// SQL Query to check username doesn't already exist
 			$checkQuery = sprintf("
 				SELECT * FROM users WHERE username='%s'
 				", 
-				mysqli_real_escape_string($_POST['username'])
+				mysqli_real_escape_string($db, $_POST['username'])
 			);
 			// If username does exist, redirect back to signup page with message
-			if (mysqli_query($db, $checkQuery)) {
+			$result = mysqli_fetch_all(makeQuery($db, $checkQuery));
+			if (!empty($result)) {
 				header("Location: signup.php?exists=1");
-				exit(0);
+				exit();
 			}
 			// Else, add user into database
+			$db = getDBConnection();
 			$query = sprintf(
 				"INSERT INTO users (`first-name`, `last-name`, username, password) VALUES ('%s', '%s', '%s', '%s')",
-				mysqli_real_escape_string($db, $_POST['firstname']),
-				mysqli_real_escape_string($db, $_POST['lastname']),
-				mysqli_real_escape_string($db, $_POST['username']),
+				mysqli_real_escape_string($db, trim($_POST['firstname'])),
+				mysqli_real_escape_string($db, trim($_POST['lastname'])),
+				mysqli_real_escape_string($db, $username),
 				mysqli_real_escape_string($db, $hash)
 			);
 			if (!makeQuery($db, $query)) {
