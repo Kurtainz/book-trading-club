@@ -6,6 +6,19 @@
 
 	if ($json_string) {
 		$db = getDBConnection();
+		// Check to see if user already owns this book
+		$checkQuery = sprintf("
+			SELECT * FROM books WHERE `owner-id`='%s' AND isbn='%s'
+			", 
+			$_SESSION['id'],
+			mysqli_real_escape_string($db, $json_string['ISBN']));
+		// $checkResult = mysqli_fetch_assoc(makeQuery($db, $checkQuery));
+		$checkResult = mysqli_fetch_assoc(makeQuery($db, $checkQuery));
+		// If result isn't empty, abort script and send response
+		if (!is_null($checkResult)) {
+			exit('owned');
+		}
+		$db = getDBConnection();
 		$query = sprintf("
 			INSERT INTO books (isbn, `owner-id`, name, author, picture) VALUES ('%s', '%s', '%s', '%s', '%s')
 			", 
@@ -14,7 +27,6 @@
 			mysqli_real_escape_string($db, $json_string['name']),
 			mysqli_real_escape_string($db, $json_string['authors']),
 			mysqli_real_escape_string($db, $json_string['picture']));
-
 		if (makeQuery($db, $query)) {
 			exit('true');
 		}

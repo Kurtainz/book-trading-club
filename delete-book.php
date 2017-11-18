@@ -8,7 +8,7 @@
 			$_SESSION['id'],
 			mysqli_real_escape_string($db, $_POST['isbn']));
 		if (makeQuery($db, $query)) {
-			exit('true');
+			exit('deleted');
 		}
 		else {
 			exit(mysqli_error($db));

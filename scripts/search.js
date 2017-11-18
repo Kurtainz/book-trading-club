@@ -86,6 +86,9 @@ function addBook(e) {
         	if (this.responseText === 'true') {
         		p.innerHTML = "Added to My Books";
         	}
+        	else if (this.responseText === 'owned') {
+        		p.innerHTML = "You already own this book";
+        	}
         	else {
         		p.innerHTML = "Failed to add book";
         		console.log(this.responseText);
@@ -94,21 +97,17 @@ function addBook(e) {
     }
 }
 
-function makeRequest(url, type, content_type, content, callback) {
-	var request = new XMLHttpRequest();
-	request.open(type, url);
-	request.send();
+// function makeRequest(url, type, content_type, content, callback) {
+// 	var request = new XMLHttpRequest();
+// 	request.open(type, url);
+// 	request.send();
 
-	request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        	callback(request.response);
-        }
-    }
-}
-
-function showResponse(response) {
-
-}
+// 	request.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//         	callback(request.response);
+//         }
+//     }
+// }
 
 // Executes search when enter is pressed
 search.addEventListener('keyup', function(e) {
