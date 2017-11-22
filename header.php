@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	require "session_expire.php";
 	$signedIn = false;
 	if (isset($_SESSION['username'])) {
 		$signedIn = true;

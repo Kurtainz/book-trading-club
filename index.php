@@ -1,6 +1,9 @@
 <?php 
 	$title = 'Book Trading Club';
 	require 'header.php';
+	if (isset($_SESSION['id'])) {
+		header("Location: all-books.php");
+	}
 ?>
 
 	<div class="jumbotron">
@@ -8,18 +11,10 @@
 	  <p class="lead">Welcome to Book Trading Club, your number one source for a better reading experience!</p>
 	  <hr class="my-4">
 	  <p>Click below to get started!</p>
-	  <?php 
-	  	if (!isset($_SESSION['username'])) {
-	  		echo "
-	  			<p class='lead'>
-				    <a class='btn btn-primary btn-lg' href='signup.php' role='button'>Sign Up</a>
-				    <a class='btn btn-primary btn-lg' href='login.php' role='button'>Log In</a>
-				</p>";
-	  	}
-	  	else {
-	  		// Buttons to perform various actions eg, find books will go in here
-	  	}
-	  ?>
+	  <p class='lead'>
+		  <a class='btn btn-primary btn-lg' href='signup.php' role='button'>Sign Up</a>
+		  <a class='btn btn-primary btn-lg' href='login.php' role='button'>Log In</a>
+	  </p>
 	</div>
 
 	<div class="container-fluid">
