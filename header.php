@@ -3,6 +3,7 @@
 	$signedIn = false;
 	if (isset($_SESSION['username'])) {
 		$signedIn = true;
+		$escaped_username = htmlspecialchars($_SESSION['username']);
 	}
 ?>
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
 							</li>";
 						echo "
 							<li class='nav-item'>
-								<a class='nav-link' href='logout.php'>Log Out " . $_SESSION['username'] . "</a>
+								<a class='nav-link' href='logout.php'>Log Out " . $escaped_username . "</a>
 							</li>";
 					}
 				?>		

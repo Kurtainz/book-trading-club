@@ -1,6 +1,7 @@
 <?php 
 	session_start();
 
+	// Session will expire after 1800 seconds (30 minutes)
 	$expiresAfter = 1800;
 
 	if (isset($_SESSION['last_action'])) {

@@ -32,3 +32,7 @@ nav {
 	max-height: 10vh;
 	overflow: hidden;
 }
+
+#active-trades, #trade-requests {
+	display: none;
+}
