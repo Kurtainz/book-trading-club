@@ -67,7 +67,7 @@
 	<h1>All Books</h1>
 	<div>
 		<button id="active-button" class="btn btn-secondary" href="">Active Trades <?php echo $num_of_active_trades ?></button>
-		<div id="active-trades"></div>
+		<div id="active-trades"><?php echo $active_trades; ?></div>
 		<button id="trade-button" class="btn btn-success" href="">Trade Requests <?php echo $num_of_trade_requests ?></button>
 		<div id="trade-requests">
 			<?php echo $trade_requests; ?>
