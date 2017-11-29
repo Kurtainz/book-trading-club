@@ -13,9 +13,21 @@
 			$_SESSION['id']);
 		$result = makeQuery($db, $query);
 		if ($result) {
-			exit('requested');
+			$response = [
+				'type' => 'requested',
+				'isbn' => htmlspecialchars($_POST['isbn']),
+				'owner' => $_SESSION['id']
+			];
+			$response = json_encode($response);
 		}
 		else {
-			exit(mysqli_error($db));
+			$response = mysqli_error($db);
 		}
+		exit($response);
+		// if ($result) {
+		// 	exit('requested');
+		// }
+		// else {
+		// 	exit(mysqli_error($db));
+		// }
 	}

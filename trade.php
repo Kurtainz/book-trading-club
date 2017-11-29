@@ -34,7 +34,7 @@
 					WHERE isbn='%s' AND `owner-id`='%s' AND (`requested-by`='%s' OR `loaned-to`='%s')
 					",
 					mysqli_real_escape_string($db, $_POST['isbn']),
-					$_POST['owner_id'],
+					mysqli_real_escape_string($db, $_POST['owner_id']),
 					$_SESSION['id'],
 					$_SESSION['id']
 				);
@@ -42,12 +42,15 @@
 		}
 		if (isset($query)) {
 			$result = makeQuery($db, $query);
-			if ($result) {
-				exit($query);
+			$response = json_encode([
+				'type' => 'trade',
+				'isbn' => $_POST['isbn'],
+				'error' => null
+			]);
+			if (!$result) {
+				$response['error'] = mysqli_error($db);
 			}
-			else {
-				exit(mysqli_error($db));
-			}
+			exit($response);
 		}
 	}
 	
