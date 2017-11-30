@@ -24,10 +24,4 @@
 			$response = mysqli_error($db);
 		}
 		exit($response);
-		// if ($result) {
-		// 	exit('requested');
-		// }
-		// else {
-		// 	exit(mysqli_error($db));
-		// }
 	}

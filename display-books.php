@@ -50,9 +50,9 @@
 <div class="container-fluid">
 	<h1><?php echo $title; ?></h1>
 	<div>
-		<button id="active-button" class="btn btn-secondary" href="">Active Trades <?php echo $bookArr['num_of_active_trades']; ?></button>
+		<button id="active-button" class="btn btn-secondary" href="">Active Trades <span id="active-trade-num"><?php echo $bookArr['num_of_active_trades']; ?></span></button>
 		<div id="active-trades"><?php echo $bookArr['active_trades']; ?></div>
-		<button id="trade-button" class="btn btn-success" href="">Trade Requests <?php echo $bookArr['num_of_trade_requests']; ?></button>
+		<button id="trade-button" class="btn btn-success" href="">Trade Requests <span id="trade-request-num"><?php echo $bookArr['num_of_trade_requests']; ?></span></button>
 		<div id="trade-requests">
 			<?php echo $bookArr['trade_requests']; ?>
 		</div>
