@@ -59,6 +59,12 @@
 			$book_arr['active_trades'] .= $new_book_elements;
 		}
 	}
+	if (empty($book_arr['active_trades'])) {
+		$book_arr['active_trades'] = "<h2>You Have No Active Trades</h2>";
+	}
+	if (empty($book_arr['trade_requests'])) {
+		$book_arr['trade_requests'] = "<h2>You Have No Trade Requests</h2>";
+	}
 
 	if (isset($_POST['update'])) {
 		$book_arr['type'] = 'update';
@@ -66,12 +72,19 @@
 	}
 ?>
 
+<div id="snackbar">There was an error processing your request =(</div>
 <div class="container-fluid">
 	<h1><?php echo $title; ?></h1>
 	<div>
-		<button id="active-button" class="btn btn-secondary" href="">Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span></button>
-		<div id="active-trades"><?php echo $book_arr['active_trades']; ?></div>
-		<button id="trade-button" class="btn btn-success" href="">Trade Requests <span id="trade-request-num"><?php echo $book_arr['num_of_trade_requests']; ?></span></button>
+		<button id="active-button" class="btn btn-secondary" href="">
+			Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
+		</button>
+		<div id="active-trades">
+			<?php echo $book_arr['active_trades']; ?>		
+		</div>
+		<button id="trade-button" class="btn btn-success" href="">
+			Trade Requests <span id="trade-request-num"><?php echo $book_arr['num_of_trade_requests']; ?></span>
+		</button>
 		<div id="trade-requests">
 			<?php echo $book_arr['trade_requests']; ?>
 		</div>

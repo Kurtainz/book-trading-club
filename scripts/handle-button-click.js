@@ -96,6 +96,9 @@ function make_XHR_request(destination, data) {
         	process_response(this.responseText);
         }
     }
+    request.onerror = function() {
+    	handle_error();
+    }
 }
 
 // Callback which deals with AJAX responses from different PHP scripts. Action taken is based on the type of response
@@ -120,6 +123,14 @@ function process_response(response) {
 		case "update":
 			update_divs(response);
 	}
+}
+
+function handle_error() {
+	var snackbar = document.querySelector('#snackbar');
+	snackbar.setAttribute('display', 'fixed');
+	setTimeout(function() {
+		snackbar.setAttribute('display', 'none');
+	}, 5000);
 }
 
 // Clears the active-trades and trade-requests buttons and makes an AJAX call to update them 
@@ -147,8 +158,8 @@ function update_divs(data) {
 	}
 	active_trades.innerHTML = data.active_trades;
 	trade_requests.innerHTML = data.trade_requests;
-	document.querySelector('#active-trade-num').innerHTML = active_trades.childElementCount;
-	document.querySelector('#trade-request-num').innerHTML = trade_requests.childElementCount;
+	document.querySelector('#active-trade-num').innerHTML = active_trades.querySelectorAll('div').length;
+	document.querySelector('#trade-request-num').innerHTML = trade_requests.querySelectorAll('div').length;
 	add_listener_to_confirm_buttons();
 	change_buttons();
 }
