@@ -10,6 +10,10 @@
 	}
 
 	$db = getDBConnection();
+	if (is_null($db)) {
+		echo "<h1>Error Connecting To Database</h1>";
+		exit;
+	}
 	$query = "SELECT * FROM books";
 	$result = mysqli_fetch_all(makeQuery($db, $query));
 
@@ -72,7 +76,6 @@
 	}
 ?>
 
-<div id="snackbar">There was an error processing your request =(</div>
 <div class="container-fluid">
 	<h1><?php echo $title; ?></h1>
 	<div>

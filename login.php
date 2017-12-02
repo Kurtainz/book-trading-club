@@ -1,12 +1,9 @@
 <?php 
 	$title = 'Log In';
 	require 'header.php';
-	if (isset($_GET['newUser'])) {
-		echo "<h1>New User Added!</h1>";
-	}
 	if (isset($_SESSION['username'])) {
 		header("Location: index.php");
-		exit(0);
+		exit;
 	}
 ?>
 
@@ -26,7 +23,7 @@
 
 <?php 
 	if (isset($_GET['failed'])) {
-		echo "<h1>ERROR LOGGING IN</h1>";
+		echo "<h1>Error Logging In</h1>";
 	}
 	require 'footer.php';
 ?>

@@ -6,6 +6,10 @@
 		if ($_POST['username'] !== '' && $_POST['password'] !== '') {
 			// $db = mysqli_connect('localhost', $username, $password, 'book-club');
 			$db = getDBConnection();
+			if (is_null($db)) {
+				header("Location: login.php?failed=1");
+				exit;
+			}
 			$username = trim(strtolower($_POST['username']));
 			$query = sprintf(
 				"SELECT * FROM users WHERE username='%s'",
@@ -17,16 +21,16 @@
 					$_SESSION['id'] = $result['id'];
 					$_SESSION['username'] = $result['username'];
 					header("Location: all-books.php");
-					exit(0);
+					exit;
 				}
 				else {
 					header("Location: login.php?failed=1");
-					exit(0);
+					exit;
 				}
 			}
 			else {
 				header("Location: login.php?failed=1");
-				exit(0);
+				exit;
 			}
 		}
 	}

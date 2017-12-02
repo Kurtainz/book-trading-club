@@ -93,6 +93,7 @@ function make_XHR_request(destination, data) {
 
 	request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+        	console.log(this.responseText);
         	process_response(this.responseText);
         }
     }
@@ -104,6 +105,11 @@ function make_XHR_request(destination, data) {
 // Callback which deals with AJAX responses from different PHP scripts. Action taken is based on the type of response
 // which is specified in the 'type' on the returned JSON object
 function process_response(response) {
+	if (!response) {
+		handle_error();
+		return;
+		console.log('After return');
+	}
 	response = JSON.parse(response);
 	switch (response.type) {
 		case "deleted":
@@ -126,10 +132,12 @@ function process_response(response) {
 }
 
 function handle_error() {
-	var snackbar = document.querySelector('#snackbar');
-	snackbar.setAttribute('display', 'fixed');
+	var snackbar = document.createElement('div');
+	snackbar.innerText = 'There was an error processing your request =(';
+	snackbar.setAttribute('id', 'snackbar');
+	document.querySelector('.container-fluid').prepend(snackbar);
 	setTimeout(function() {
-		snackbar.setAttribute('display', 'none');
+		document.querySelector('.container-fluid').removeChild(document.querySelector('#snackbar'));
 	}, 5000);
 }
 

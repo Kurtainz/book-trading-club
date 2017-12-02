@@ -3,6 +3,9 @@
 	require "scripts/database.php";
 	if (isset($_SESSION['id'])) {
 		$db = getDBConnection();
+		if (is_null($db)) {
+			exit(null);
+		}
 		$query = sprintf("
 			DELETE FROM books WHERE `owner-id`='%s' AND isbn='%s'",
 			$_SESSION['id'],

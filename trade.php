@@ -4,6 +4,9 @@
 
 	if (isset($_SESSION['id'])) {
 		$db = getDBConnection();
+		if (is_null($db)) {
+			exit;
+		}
 
 		// Accept an incoming trade request
 		if ($_POST['trade_action'] === 'confirm' && $_SESSION['id'] === $_POST['owner_id']) {

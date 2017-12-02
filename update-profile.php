@@ -9,6 +9,10 @@
 
 	$updated = '';
 	$db = getDBConnection();
+	if (is_null($db)) {
+		echo "<h1>Error Connecting To Database</h1>";
+		exit;
+	}
 
 	if (isset($_POST['details-submit'])) {
 		$query = sprintf("

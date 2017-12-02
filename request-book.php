@@ -4,6 +4,9 @@
 
 	if (isset($_SESSION['id'])) {
 		$db = getDBConnection();
+		if (is_null($db)) {
+			exit(null);
+		}
 		$query = sprintf("
 			UPDATE books SET `requested-by`='%s' WHERE isbn='%s'
 			AND `owner-id`<>'%s' AND `requested-by` IS NULL
