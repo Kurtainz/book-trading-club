@@ -1,9 +1,43 @@
+body {
+	font-family: 'Spectral SC', serif;
+}
+
 nav {
-	background-color: #2fe266;
+	background-color: #2c3a28;
+	color: #fff;
+}
+
+a {
+	color: inherit;
+}
+
+a:hover {
+	color: inherit;
+	text-decoration: none;
 }
 
 .jumbotron {
+	background-image: url("../images/book.jpg");
+	background-size: cover;
 	text-align: center;
+	margin: 0;
+}
+
+.jumbo-div {
+	padding: 10px 0;
+	width: 55%;
+    margin: 0 auto;
+    background-color: #00000078;
+    color: #f3f2f2;
+}
+
+.jumbo-head {
+	letter-spacing: 4px;
+}
+
+.index-container {
+	background-color: #2c3a28;
+	padding: 2rem 0;
 }
 
 #signupForm {
@@ -13,7 +47,15 @@ nav {
 
 .index-minor-header {
 	text-align: center;
-	margin-bottom: 32px;
+	margin-bottom: 40px;
+}
+
+.index-article {
+	border-right: 1px solid #fff;
+}
+
+.index-article:last-of-type {
+	border: 0;
 }
 
 #login-form {
@@ -28,13 +70,75 @@ nav {
 	margin-bottom: 30px;
 }
 
-.book-title {
-	max-height: 10vh;
-	overflow: hidden;
+.main-title {
+	text-align: center;
+    margin: 10px;
+    font-size: 50px;
+}
+
+#buttons {
+	margin-bottom: 20px;
+	max-width: 500px;
+}
+
+.item {
+	display: inline;
+}
+.small-book-container {
+	display: flex;
+    justify-content: space-evenly;
+}
+
+.small-book-title {
+	width: 70%;
+    display: inline-block;
+    margin: 0;
+}
+
+.small-book-image {
+	height: 50px;
+	width: 50px;
+	vertical-align: top;
 }
 
 #active-trades, #trade-requests {
-	display: none;
+	padding-top: 5px;
+    width: 100%;
+    position: absolute;
+    border: 1px solid grey;
+    background-color: #fff;
+    z-index: 1;
+    max-width: inherit;
+}
+
+#active-trades div, #trade-requests div {
+	padding-left: 5px;
+}
+
+.add-books:hover {
+	cursor: default;
+}
+
+.book-container {
+	margin-bottom: 20px;
+}
+
+.book-title {
+	height: 10vh;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.book-image {
+	height: 200px;
+    width: 150px;
+}
+
+.book-author {
+	margin-top: 10px;
+	max-width: 150px;
+    max-height: 25px;
+	font-weight: bold;
 }
 
 .request-text {

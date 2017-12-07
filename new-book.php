@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	require "session_expire.php";
 	require "scripts/database.php";
 
 	$json_string = json_decode(file_get_contents('php://input'), true);

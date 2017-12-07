@@ -1,6 +1,6 @@
 <?php 
 	if (isset($_POST['update'])) {
-		session_start();
+		require "session_expire.php";
 	}
 	require "scripts/database.php";
 
@@ -27,27 +27,25 @@
 	// Loop through all books to populate trade request data
 	foreach ($result as $book => $arr) {
 		// String will indicate what kind of loan or request if in progress
-		$request_text = '';
-		if ($result[$book][1] === $_SESSION['id']) {
-			if (!is_null($result[$book][5])) {
-				$request_text = 'Book has been requested by another user';
-			}
-			elseif (!is_null($result[$book][6])) {
-				$request_text = 'You have loaned this book out';
-			}
-		}
-		elseif ($result[$book][5] === $_SESSION['id']) {
-			$request_text = 'You have requested this book';
-		}
-		elseif ($result[$book][6] === $_SESSION['id']) {
-			$request_text = 'You are currently borrowing this book';
-		}
+		// $request_text = '';
+		// if ($result[$book][1] === $_SESSION['id']) {
+		// 	if (!is_null($result[$book][5])) {
+		// 		$request_text = 'Book has been requested by another user';
+		// 	}
+		// 	elseif (!is_null($result[$book][6])) {
+		// 		$request_text = 'You have loaned this book out';
+		// 	}
+		// }
+		// elseif ($result[$book][5] === $_SESSION['id']) {
+		// 	$request_text = 'You have requested this book';
+		// }
+		// elseif ($result[$book][6] === $_SESSION['id']) {
+		// 	$request_text = 'You are currently borrowing this book';
+		// }
 		$new_book_elements = "
-			<div data-isbn='{$result[$book][0]}' data-owner='{$result[$book][1]}' data-requestedBy='{$result[$book][5]}' class='col-md-3'>
-				<h2 class='book-title'>{$result[$book][2]}</h2>
-				<img src='{$result[$book][4]}'></img>
-				<p class='request-text'>$request_text</p>
-				<p>{$result[$book][3]}</p>
+			<div data-isbn='{$result[$book][0]}' data-owner='{$result[$book][1]}' data-requestedBy='{$result[$book][5]}' class='small-book-container'>
+				<p class='small-book-title'>{$result[$book][2]}</p>
+				<img class='small-book-image' src='{$result[$book][4]}'></img>
 				<a class='fa fa-check confirm'></i></a>
 				<a class='fa fa-times cancel'></a>
 			</div>
@@ -77,24 +75,47 @@
 ?>
 
 <div class="container-fluid">
-	<h1><?php echo $title; ?></h1>
-	<div>
-		<button id="active-button" class="btn btn-secondary" href="">
+
+	<h1 class="main-title"><?php echo $title; ?></h1>
+
+	<div id="buttons">
+		<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
 			Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
 		</button>
-		<div id="active-trades">
+		<div id="active-trades" class="collapse">
 			<?php echo $book_arr['active_trades']; ?>		
 		</div>
-		<button id="trade-button" class="btn btn-success" href="">
+		<button id="trade-button" class="btn btn-success" data-toggle="collapse" data-target="#trade-requests" data-parent="#buttons">
 			Trade Requests <span id="trade-request-num"><?php echo $book_arr['num_of_trade_requests']; ?></span>
 		</button>
-		<div id="trade-requests">
+		<div id="trade-requests" class="collapse">
 			<?php echo $book_arr['trade_requests']; ?>
 		</div>
+		<button class="btn btn-primary" href="add-books.php">
+			<a class="add-books" href="add-books.php">Add Books</a>
+		</button>
 	</div>
-	<div>
-		<a class="btn btn-primary btn-lg" href="add-books.php">Add Books</a>
-	</div>
+	<!-- <div id="buttons" data-children=".item">
+		<div class="item">
+			<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
+				Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
+			</button>
+			<div id="active-trades" class="collapse">
+				<?php echo $book_arr['active_trades']; ?>		
+			</div>
+		</div>
+		<div class="item">
+			<button id="trade-button" class="btn btn-success" data-toggle="collapse" data-target="#trade-requests" data-parent="#buttons">
+				Trade Requests <span id="trade-request-num"><?php echo $book_arr['num_of_trade_requests']; ?></span>
+			</button>
+			<div id="trade-requests" class="collapse">
+				<?php echo $book_arr['trade_requests']; ?>
+			</div>
+		</div>
+		<button class="btn btn-primary" href="add-books.php">
+			<a class="add-books" href="add-books.php">Add Books</a>
+		</button>
+	</div> -->
 
 	<div id="book-collection" class="row">
 
@@ -104,10 +125,10 @@
 				foreach ($result as $book => $arr) {
 					if ($title === "My Books") {
 						if ($result[$book][1] === $_SESSION['id']) {
-							echo "<div class='col-md-3'>
+							echo "<div class='col-md-3 book-container'>
 									<h2 class='book-title'>{$result[$book][2]}</h2>
-									<img src='{$result[$book][4]}'></img>
-									<p>{$result[$book][3]}</p>
+									<img class='book-image' src='{$result[$book][4]}'></img>
+									<p class='book-author'>{$result[$book][3]}</p>
 									<button data-isbn='{$result[$book][0]}' class='btn btn-danger delete-button'>Delete Book</button>
 						  		  </div>
 						";
@@ -117,10 +138,10 @@
 						}
 					}
 					else {
-						echo "<div class='col-md-3'>
+						echo "<div class='col-md-3 book-container'>
 								<h2 class='book-title'>{$result[$book][2]}</h2>
-								<img src='{$result[$book][4]}'></img>
-								<p>{$result[$book][3]}</p>
+								<img class='book-image' src='{$result[$book][4]}'></img>
+								<p class='book-author'>{$result[$book][3]}</p>
 						";
 						if ($result[$book][1] === $_SESSION['id']) {
 							echo "
@@ -142,6 +163,9 @@
 		?>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 	<script src="scripts/handle-button-click.js"></script>
 
 <?php 

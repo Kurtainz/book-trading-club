@@ -20,6 +20,10 @@
 			$username = trim(strtolower($_POST['username']));
 			$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			$db = getDBConnection();
+			if (is_null($db)) {
+				header("Location: signup.php?failed=1");
+				exit;
+			}
 			// SQL Query to check username doesn't already exist
 			$checkQuery = sprintf("
 				SELECT * FROM users WHERE username='%s'
@@ -34,6 +38,10 @@
 			}
 			// Else, add user into database
 			$db = getDBConnection();
+			if (is_null($db)) {
+				header("Location: signup.php?failed=1");
+				exit;
+			}
 			$query = sprintf(
 				"INSERT INTO users (`first-name`, `last-name`, username, password) VALUES ('%s', '%s', '%s', '%s')",
 				mysqli_real_escape_string($db, trim($_POST['firstname'])),

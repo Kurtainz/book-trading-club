@@ -4,7 +4,7 @@
 	// Session will expire after 1800 seconds (30 minutes)
 	$expiresAfter = 1800;
 
-	if (isset($_SESSION['last_action'])) {
+	if (isset($_SESSION['last_action']) && isset($_SESSION['id'])) {
 		// Calculate how many seconds have passed since user's last action
 		$secondsInactive = time() - $_SESSION['last_action'];
 		if ($secondsInactive >= $expiresAfter) {

@@ -2,7 +2,7 @@ window.onload = add_button_listeners();
 
 // Add listeners for all buttons
 function add_button_listeners() {
-	add_listener_to_trade_buttons();
+	// add_listener_to_trade_buttons();
 	add_listener_to_book_buttons();
 	add_listener_to_confirm_buttons();
 	change_buttons();
@@ -93,7 +93,6 @@ function make_XHR_request(destination, data) {
 
 	request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        	console.log(this.responseText);
         	process_response(this.responseText);
         }
     }
@@ -108,7 +107,6 @@ function process_response(response) {
 	if (!response) {
 		handle_error();
 		return;
-		console.log('After return');
 	}
 	response = JSON.parse(response);
 	switch (response.type) {
@@ -120,7 +118,6 @@ function process_response(response) {
 			break;
 		case "trade":
 			if (response.error) {
-				console.log(response.error);
 			}
 			else {
 				clear_divs();

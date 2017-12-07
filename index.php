@@ -7,31 +7,39 @@
 ?>
 
 	<div class="jumbotron">
-	  <h1 class="display-3">Book Trading Club</h1>
-	  <p class="lead">Welcome to Book Trading Club, your number one source for a better reading experience!</p>
-	  <hr class="my-4">
-	  <p>Click below to get started!</p>
-	  <p class='lead'>
-		  <a class='btn btn-primary btn-lg' href='signup.php' role='button'>Sign Up</a>
-		  <a class='btn btn-primary btn-lg' href='login.php' role='button'>Log In</a>
-	  </p>
+		<div class="jumbo-div">
+			<h1 class="display-3 jumbo-head">Book Trading Club</h1>
+			<p class="lead">Welcome to Book Trading Club, your number one source for a better reading experience!</p>
+			<hr class="my-4">
+			<p>Click below to get started!</p>
+			<p class='lead'>
+				<div class="row">
+					<div class="col-md-6">
+							<a class='btn btn-primary btn-lg' href='signup.php' role='button'>Sign Up</a>
+					</div>
+					<div class="col-md-6">
+							<a class='btn btn-primary btn-lg' href='login.php' role='button'>Log In</a>
+					</div>
+				</div>
+			</p>
+		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container-fluid index-container">
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="index-minor-header">Why Join Us?</h2>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 index-article">
 				<h3>Browse Other User's Book Collections</h3>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 index-article">
 				<h3>Trade Books With Other Users</h3>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 index-article">
 				<h3>Easily Manage Your Trades From Our Control Panel</h3>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 index-article">
 				<h3>Catalogue Your Book Collection</h3>
 			</div>
 		</div>
