@@ -78,7 +78,7 @@
 
 	<h1 class="main-title"><?php echo $title; ?></h1>
 
-	<div id="buttons">
+	<!-- <div id="buttons">
 		<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
 			Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
 		</button>
@@ -94,8 +94,8 @@
 		<button class="btn btn-primary" href="add-books.php">
 			<a class="add-books" href="add-books.php">Add Books</a>
 		</button>
-	</div>
-	<!-- <div id="buttons" data-children=".item">
+	</div> -->
+	<div id="buttons" data-children=".item">
 		<div class="item">
 			<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
 				Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
@@ -115,7 +115,7 @@
 		<button class="btn btn-primary" href="add-books.php">
 			<a class="add-books" href="add-books.php">Add Books</a>
 		</button>
-	</div> -->
+	</div>
 
 	<div id="book-collection" class="row">
 

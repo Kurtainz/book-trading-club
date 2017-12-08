@@ -109,10 +109,12 @@ a:hover {
     background-color: #fff;
     z-index: 1;
     max-width: inherit;
+    max-width: 500px;
 }
 
 #active-trades div, #trade-requests div {
 	padding-left: 5px;
+	margin-bottom: 10px;
 }
 
 .add-books:hover {
@@ -159,6 +161,10 @@ a:hover {
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
+}
+
+.search-box {
+	margin-bottom: 20px;
 }
 
 /*Style for snackbar, error message that is shown if database operation such as requesting trade fails*/

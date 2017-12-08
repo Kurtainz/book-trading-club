@@ -2,6 +2,7 @@ var search = document.getElementById('search-box');
 
 // This function makes the API call with the supplied query string
 function makeSearch(query) {
+	clearData();
 	query = query.replace(" ", "+");
 	var request = new XMLHttpRequest();
 	var url = "https://www.googleapis.com/books/v1/volumes?q=" + query;
@@ -14,10 +15,19 @@ function makeSearch(query) {
 	}
 }
 
+function clearData() {
+	var search_results = document.getElementsByClassName('search-results')[0];
+	if (search_results) {
+		while (search_results.firstChild) {
+			search_results.removeChild(search_results.firstChild);
+		}
+	}
+}
+
 // Creates a new div and calls createNewElements to populate with data
 function appendData(data) {
 	var suggestions = document.createElement('div');
-	suggestions.setAttribute('class', 'row');
+	suggestions.setAttribute('class', 'row search-results');
 	document.getElementById('search').appendChild(suggestions);
 	data.items.forEach(function(item) {
 		var newElement = createNewElements(item);
@@ -34,16 +44,18 @@ function createNewElements(item) {
 		var div = document.createElement('div');
 		var h2 = div.appendChild(document.createElement('h2'));
 		var img = div.appendChild(document.createElement('img'));
-		var a = div.appendChild(document.createElement('a'));
 		var p = div.appendChild(document.createElement('p'));
-		div.setAttribute('class', 'col-md-3');
+		var a = div.appendChild(document.createElement('a'));
+		div.setAttribute('class', 'col-md-3 book-container');
 		h2.setAttribute('class', 'book-title');
 		h2.innerHTML = book.name;
 		p.innerHTML = book.authors;
+		p.setAttribute('class', 'book-author');
 		img.src = book.picture;
+		img.setAttribute('class', 'book-image');
 		a.innerHTML = "Add Book";
 		a.book = book;
-		a.setAttribute('class', 'btn btn-primary');
+		a.setAttribute('class', 'btn btn-success');
 		a.addEventListener('click', addBook);
 		return div;
 	}
@@ -96,18 +108,6 @@ function addBook(e) {
         }
     }
 }
-
-// function makeRequest(url, type, content_type, content, callback) {
-// 	var request = new XMLHttpRequest();
-// 	request.open(type, url);
-// 	request.send();
-
-// 	request.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//         	callback(request.response);
-//         }
-//     }
-// }
 
 // Executes search when enter is pressed
 search.addEventListener('keyup', function(e) {

@@ -9,30 +9,45 @@ function add_button_listeners() {
 }
 
 // Adds listeners to Active Trades and Trade Requests buttons at top of page
-function add_listener_to_trade_buttons() {
-	var trade_buttons = document.querySelectorAll('#active-button, #trade-button');
+// function add_listener_to_trade_buttons() {
+// 	var trade_buttons = document.querySelectorAll('#active-button, #trade-button');
 
-	trade_buttons.forEach(function(button) {
-		button.addEventListener('click', function(e) {
-			if (e.target.id === 'active-button') {
-				var target_div = document.querySelector('#active-trades');
-				var other_div = document.querySelector('#trade-requests');
-			}
-			else {
-				var target_div = document.querySelector('#trade-requests');
-				var other_div = document.querySelector('#active-trades');
-			}
-			var display_style = window.getComputedStyle(target_div).display;
-			if (display_style === 'none') {
-				target_div.style.display = 'block'
-				other_div.style.display = 'none';
-			}
-			else {
-				target_div.style.display = 'none';
-			}
-		});
-	});
-}
+// 	trade_buttons.forEach(function(button) {
+// 		button.addEventListener('click', function(e) {
+// 			if (e.target.id === 'active-button') {
+// 				var other_div = document.querySelector('#trade-requests');
+// 			}
+// 			else if (e.target.id === 'trade-button') {
+// 				var other_div = document.querySelector('#active-trades');
+// 			}
+// 			other_div.style.display = 'none';
+// 		});
+// 	});
+// }
+// function add_listener_to_trade_buttons() {
+// 	var trade_buttons = document.querySelectorAll('#active-button, #trade-button');
+
+// 	trade_buttons.forEach(function(button) {
+// 		button.addEventListener('click', function(e) {
+// 			if (e.target.id === 'active-button') {
+// 				var target_div = document.querySelector('#active-trades');
+// 				var other_div = document.querySelector('#trade-requests');
+// 			}
+// 			else {
+// 				var target_div = document.querySelector('#trade-requests');
+// 				var other_div = document.querySelector('#active-trades');
+// 			}
+// 			var display_style = window.getComputedStyle(target_div).display;
+// 			if (display_style === 'none') {
+// 				target_div.style.display = 'block'
+// 				other_div.style.display = 'none';
+// 			}
+// 			else {
+// 				target_div.style.display = 'none';
+// 			}
+// 		});
+// 	});
+// }
 
 // Adds listeners to buttons that appear under each book
 function add_listener_to_book_buttons() {
