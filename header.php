@@ -1,16 +1,21 @@
 <?php 
 	require "session_expire.php";
 	$signedIn = false;
+	$header_link = "index.php";
 	if (isset($_SESSION['username'])) {
 		$signedIn = true;
+		$header_link = "all-books.php";
 		$escaped_username = htmlspecialchars($_SESSION['username']);
 	}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Manage your book collection and trade with other users">
 	<title><?= $title ?></title>
+	<link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
 	<script src="https://use.fontawesome.com/12b34b3018.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Spectral+SC" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -18,8 +23,8 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg">
-		<a class="navbar-brand" href="index.php">BTC</a>
+	<nav class="navbar navbar-expand-lg navbar-dark">
+		<a class="navbar-brand" href="<?= $header_link ?>">BTC</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

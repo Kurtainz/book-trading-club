@@ -45,6 +45,7 @@ function createNewElements(item) {
 		var h2 = div.appendChild(document.createElement('h2'));
 		var img = div.appendChild(document.createElement('img'));
 		var p = div.appendChild(document.createElement('p'));
+		var button = div.appendChild(document.createElement('button'));
 		var a = div.appendChild(document.createElement('a'));
 		div.setAttribute('class', 'col-md-3 book-container');
 		h2.setAttribute('class', 'book-title');
@@ -53,10 +54,10 @@ function createNewElements(item) {
 		p.setAttribute('class', 'book-author');
 		img.src = book.picture;
 		img.setAttribute('class', 'book-image');
-		a.innerHTML = "Add Book";
-		a.book = book;
-		a.setAttribute('class', 'btn btn-success');
-		a.addEventListener('click', addBook);
+		button.setAttribute('class', 'btn btn-success');
+		button.innerText = 'Add Book';
+		button.addEventListener('click', addBook);
+		button.book = book;
 		return div;
 	}
 }
@@ -96,14 +97,17 @@ function addBook(e) {
 	request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         	if (this.responseText === 'true') {
+        		e.target.setAttribute('disabled', '');
+				e.target.innerText = 'Book owned';
         		p.innerHTML = "Added to My Books";
         	}
         	else if (this.responseText === 'owned') {
+        		e.target.setAttribute('disabled', '');
+				e.target.innerText = 'Book owned';
         		p.innerHTML = "You already own this book";
         	}
         	else {
         		p.innerHTML = "Failed to add book";
-        		console.log(this.responseText);
         	}
         }
     }

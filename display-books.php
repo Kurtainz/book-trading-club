@@ -26,22 +26,6 @@
 
 	// Loop through all books to populate trade request data
 	foreach ($result as $book => $arr) {
-		// String will indicate what kind of loan or request if in progress
-		// $request_text = '';
-		// if ($result[$book][1] === $_SESSION['id']) {
-		// 	if (!is_null($result[$book][5])) {
-		// 		$request_text = 'Book has been requested by another user';
-		// 	}
-		// 	elseif (!is_null($result[$book][6])) {
-		// 		$request_text = 'You have loaned this book out';
-		// 	}
-		// }
-		// elseif ($result[$book][5] === $_SESSION['id']) {
-		// 	$request_text = 'You have requested this book';
-		// }
-		// elseif ($result[$book][6] === $_SESSION['id']) {
-		// 	$request_text = 'You are currently borrowing this book';
-		// }
 		$new_book_elements = "
 			<div data-isbn='{$result[$book][0]}' data-owner='{$result[$book][1]}' data-requestedBy='{$result[$book][5]}' class='small-book-container'>
 				<p class='small-book-title'>{$result[$book][2]}</p>
@@ -78,23 +62,6 @@
 
 	<h1 class="main-title"><?php echo $title; ?></h1>
 
-	<!-- <div id="buttons">
-		<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
-			Active Trades <span id="active-trade-num"><?php echo $book_arr['num_of_active_trades']; ?></span>
-		</button>
-		<div id="active-trades" class="collapse">
-			<?php echo $book_arr['active_trades']; ?>		
-		</div>
-		<button id="trade-button" class="btn btn-success" data-toggle="collapse" data-target="#trade-requests" data-parent="#buttons">
-			Trade Requests <span id="trade-request-num"><?php echo $book_arr['num_of_trade_requests']; ?></span>
-		</button>
-		<div id="trade-requests" class="collapse">
-			<?php echo $book_arr['trade_requests']; ?>
-		</div>
-		<button class="btn btn-primary" href="add-books.php">
-			<a class="add-books" href="add-books.php">Add Books</a>
-		</button>
-	</div> -->
 	<div id="buttons" data-children=".item">
 		<div class="item">
 			<button id="active-button" class="btn btn-secondary" data-toggle="collapse" data-target="#active-trades" data-parent="#buttons">
@@ -168,6 +135,5 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 	<script src="scripts/handle-button-click.js"></script>
 
-<?php 
-	require "footer.php";
-?>
+</body>
+</html>
